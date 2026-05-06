@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini CRM Océan Zéro Plastique - Mohamed Bellabiod</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ocean-dark: #0a2463;
+            --ocean-mid: #247ba0;
+            --ocean-light: #2fa9b6;
+            --accent: #00d4ff;
+            --success: #06a77d;
+            --text-dark: #1a1a1a;
+            --text-light: #f5f5f5;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--ocean-dark) 0%, var(--ocean-mid) 50%, var(--ocean-light) 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 36, 99, 0.95);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--ocean-dark);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+            margin: 0.5rem;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+            background: #00b8d4;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--white);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .content-section h2 {
+            color: var(--ocean-dark);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--ocean-light);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .content-section h3 {
+            color: var(--ocean-mid);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        .content-section p {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Problem & Solution */
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .problem-box, .solution-box {
+            padding: 2rem;
+            border-radius: 10px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .problem-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .solution-box {
+            background: rgba(6, 168, 125, 0.1);
+            border-left: 4px solid var(--success);
+        }
+
+        .problem-box h4, .solution-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .problem-box h4 {
+            color: #ff6b6b;
+        }
+
+        .solution-box h4 {
+            color: var(--success);
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, var(--ocean-light), var(--ocean-mid));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(36, 123, 160, 0.3);
+        }
+
+        .tool-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        /* Architecture */
+        .architecture {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border: 2px solid var(--ocean-light);
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: var(--ocean-light);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .flow-step p {
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Results */
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--accent), var(--ocean-light));
+            color: var(--ocean-dark);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .result-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Features */
+        .features-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #555;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            background: linear-gradient(135deg, var(--ocean-dark), var(--ocean-mid));
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .demo-section h2 {
+            color: var(--white);
+            border-color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .demo-link {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--ocean-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+            margin: 1rem;
+        }
+
+        .demo-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+            background: #00b8d4;
+        }
+
+        .coming-soon {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 36, 99, 0.95);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .problem-solution {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="container">
+        <a href="#top">🌊 Mini CRM Océan Zéro Plastique</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero container" id="top">
+        <h1>🌊 Mini CRM Océan Zéro Plastique</h1>
+        <p>Système automatisé de gestion des inscriptions pour associations écologiques</p>
+        <p style="font-size: 1rem; opacity: 0.9;">Projet No-Code | Airtable • Tally • Make | Construit en 3 heures</p>
+        <a href="https://tally.so/r/2Eblrb" class="cta-button">📋 Voir le Formulaire</a>
+    </div>
+
+    <div class="container">
+        <!-- Problème & Solution -->
+        <div class="content-section">
+            <h2>📊 Contexte & Solution</h2>
+            
+            <div class="problem-solution">
+                <div class="problem-box">
+                    <h4>❌ Le Problème</h4>
+                    <p>Les associations reçoivent des inscriptions de bénévoles par email ou formulaires papier. Elles les saisissent manuellement dans Excel, oublient de répondre, et perdent des bénévoles motivés.</p>
+                    <ul class="features-list">
+                        <li>Saisie manuelle longue</li>
+                        <li>Pas de réponse immédiate</li>
+                        <li>Données désorganisées</li>
+                        <li>Perte de bénévoles</li>
+                    </ul>
+                </div>
+
+                <div class="solution-box">
+                    <h4>✅ La Solution</h4>
+                    <p>Un système automatisé de bout en bout qui capture les inscriptions, les enregistre dans une base de données, envoie une réponse immédiate, et notifie l'équipe. Zéro saisie manuelle.</p>
+                    <ul class="features-list">
+                        <li>Automatisation 100%</li>
+                        <li>Réponse instantanée</li>
+                        <li>Base de données centralisée</li>
+                        <li>Notifications en temps réel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outils Utilisés -->
+        <div class="content-section">
+            <h2>🛠️ Stack Technologique</h2>
+            <p>Un système complètement No-Code, gratuit et scalable :</p>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h4>📋 Tally</h4>
+                    <p>Formulaire élégant et responsive pour l'inscription des bénévoles</p>
+                </div>
+                <div class="tool-card">
+                    <h4>🗄️ Airtable</h4>
+                    <p>Base de données avec vues Grille, Kanban et Calendrier</p>
+                </div>
+                <div class="tool-card">
+                    <h4>⚙️ Make</h4>
+                    <p>Orchestrateur d'automatisations via webhooks</p>
+                </div>
+                <div class="tool-card">
+                    <h4>📧 Gmail</h4>
+                    <p>Emails de bienvenue personnalisés</p>
+                </div>
+                <div class="tool-card">
+                    <h4>💬 Slack</h4>
+                    <p>Notifications équipe en temps réel</p>
+                </div>
+                <div class="tool-card">
+                    <h4>📱 Telegram</h4>
+                    <p>Alertes mobiles instantanées</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="content-section">
+            <h2>🔄 Architecture & Flux</h2>
+            
+            <div class="architecture">
+                <h3>Le flux d'automatisation :</h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <p><strong>Inscription Tally</strong> — L'utilisateur remplit le formulaire avec ses infos (prénom, email, intérêts, disponibilité)</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <p><strong>Webhook Make</strong> — Tally déclenche automatiquement Make via webhook</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <p><strong>Création Airtable</strong> — Les données créent automatiquement un enregistrement dans la table "Bénévoles"</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <p><strong>Email de bienvenue</strong> — Gmail envoie une réponse personnalisée en quelques secondes</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <p><strong>Notifications équipe</strong> — Slack et Telegram alertent l'équipe en temps réel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fonctionnalités Airtable -->
+        <div class="content-section">
+            <h2>📊 Dashboard Airtable</h2>
+            <p>La base de données inclut <strong>3 vues différentes</strong> pour piloter l'activité :</p>
+            
+            <h3>✓ Vue Grille</h3>
+            <p>Affichage complet de tous les bénévoles avec leurs informations : prénom, nom, email, téléphone, ville, centres d'intérêt, disponibilité, statut, date d'inscription et notes.</p>
+            
+            <h3>✓ Vue Kanban</h3>
+            <p>Groupement par <strong>statut</strong> (Nouveau → Contacté → Actif → Inactif). Permet de piloter visuellement l'avancement des inscriptions et d'identifier qui contacter.</p>
+            
+            <h3>✓ Vue Calendrier</h3>
+            <p>Visualisation des inscriptions dans le temps, basée sur la date d'inscription. Utile pour identifier les périodes de forte activité.</p>
+
+            <div class="results">
+                <div class="result-card">
+                    <span class="result-number">3</span>
+                    Vues différentes
+                </div>
+                <div class="result-card">
+                    <span class="result-number">11+</span>
+                    Champs par bénévole
+                </div>
+                <div class="result-card">
+                    <span class="result-number">100%</span>
+                    Automatisé
+                </div>
+            </div>
+        </div>
+
+        <!-- Résultats -->
+        <div class="content-section">
+            <h2>🎯 Résultats & Bénéfices</h2>
+            
+            <h3>Pour l'association :</h3>
+            <ul class="features-list">
+                <li>Économie de <strong>3-4 heures par semaine</strong> en saisie manuelle</li>
+                <li><strong>Réponse instantanée</strong> aux nouveaux bénévoles (meilleure image)</li>
+                <li>Base de données <strong>centralisée et ordonnée</strong></li>
+                <li><strong>Pilotage visuel</strong> avec les vues Kanban et Calendrier</li>
+                <li><strong>Zéro coût</strong> (outils gratuits et scalables)</li>
+            </ul>
+
+            <h3>Pour le projet :</h3>
+            <ul class="features-list">
+                <li>Construit en <strong>3 heures</strong></li>
+                <li>100% <strong>No-Code</strong> (accessible à tous)</li>
+                <li><strong>Réplicable</strong> pour toute association ou PME</li>
+                <li><strong>Production-ready</strong> et maintenable</li>
+                <li>Inclut <strong>UI moderne</strong> et design professionnel</li>
+            </ul>
+        </div>
+
+        <!-- Démo -->
+        <div class="demo-section">
+            <h2>🎬 Voir la Démo</h2>
+            <p style="margin-bottom: 2rem;">Cliquez pour tester le formulaire ou regarder la vidéo de présentation :</p>
+            
+            <a href="https://tally.so/r/2Eblrb" class="demo-link">📋 Tester le Formulaire Tally</a>
+            
+            <div class="coming-soon">
+                🎥 Vidéo de démo Loom (à ajouter bientôt)
+            </div>
+        </div>
+
+        <!-- Stack Section -->
+        <div class="content-section">
+            <h2>💡 Apprentissages & Skills Clés</h2>
+            
+            <h3>No-Code & Automatisation</h3>
+            <ul class="features-list">
+                <li>Design et création de formulaires (Tally)</li>
+                <li>Gestion de bases de données (Airtable)</li>
+                <li>Orchestration d'automatisations (Make)</li>
+                <li>Webhooks et intégrations API</li>
+                <li>Design d'expérience utilisateur</li>
+            </ul>
+
+            <h3>Soft Skills</h3>
+            <ul class="features-list">
+                <li>Identification et résolution de problèmes</li>
+                <li>Thinking design systémique</li>
+                <li>Documentation et présentation</li>
+                <li>Scalabilité et maintenabilité</li>
+            </ul>
+        </div>
+
+        <!-- À propos -->
+        <div class="content-section" style="text-align: center; background: linear-gradient(135deg, #f0f7ff, #e8f4f8);">
+            <h2>👨‍💻 À Propos</h2>
+            <p><strong>Mohamed Bellabiod</strong> | En formation NoCode/IA chez Alegria.group</p>
+            <p>Portfolio : <a href="https://mobellabiod81-debug.github.io" style="color: var(--ocean-mid); text-decoration: none; font-weight: 600;">mobellabiod81-debug.github.io</a></p>
+            <p style="font-size: 0.95rem; color: #888; margin-top: 1rem;">Ce projet démontre la capacité à concevoir des solutions automatisées complexes avec des outils No-Code, en mettant l'accent sur l'UX, la scalabilité et l'impact utilisateur.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Mini CRM Océan Zéro Plastique</strong> — Projet Portfolio 2026</p>
+        <p>Construit avec Airtable • Tally • Make | Conçu par <strong>Mohamed Bellabiod</strong></p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2026 | Tous droits réservés</p>
+    </footer>
+</body>
+</html>
